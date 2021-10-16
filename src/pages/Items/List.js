@@ -56,8 +56,8 @@ const Items = (props) => {
     <div id='page-items'>
       <main>
         <div className='main-content'>
-          <h1>Filmes</h1>
           <div className="item-list">
+          <h1>Filmes</h1>
           {items.map(item => {
               return (
               <Item
@@ -67,10 +67,10 @@ const Items = (props) => {
               />
             )
           })}
-          </div>
           {totalItems > items.length && 
             <button id="see-more-btn" type="button" onClick={handleSeeMore}>Ver mais</button>
           } 
+          </div>
         </div>
       </main>
     </div>

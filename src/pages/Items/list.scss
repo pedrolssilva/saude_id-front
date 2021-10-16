@@ -14,24 +14,30 @@ main {
   align-items: stretch;
   text-align: center;
 
-  h1 {
-    color: #3e2810;
-    font-size: 24px;
-    margin: 64px 0 24px;
-    font-family: 'Poppins', sans-serif;
-  }
+  .item-list {
+    width: 600px;
+    align-self: center;
 
-  #see-more-btn {
-    font-family: 'Poppins', sans-serif;
-    color: #fffff0;
-    border: none;
-    background-color: #aca564;
-    border-radius: 4px;
-    padding: 0 4px;
-    cursor: pointer;
-  }
+    h1 {
+      color: #3e2810;
+      font-size: 24px;
+      margin: 64px 0 24px;
+      font-family: 'Poppins', sans-serif;
+    }
 
-  #see-more-btn:hover {
-    background: #928c50;
+    #see-more-btn {
+      font-family: 'Poppins', sans-serif;
+      color: #fffff0;
+      border: none;
+      background-color: #aca564;
+      border-radius: 4px;
+      padding: 0 4px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    #see-more-btn:hover {
+      background: #928c50;
+    }
   }
 }
