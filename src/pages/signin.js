@@ -5,7 +5,7 @@ import api from '../services/api'
 import StorageService from '../services/StorageService'
 
 
-import '../styles/login.scss';
+import './login.scss';
 
 const SignIn = () =>{
   const history = useHistory()
@@ -18,9 +18,11 @@ const SignIn = () =>{
     
     if(setEmail === '') {
       toast.error('Por favor, preencha o campo de email! ')
+      return
     }
     if(password  === '') {
       toast.error('Por favor, preencha o campo de senha! ')
+      return
     }
 
     const loadToastId = toast.loading("Entrando...")
@@ -34,7 +36,10 @@ const SignIn = () =>{
         history.push('/movies')
       })
       .catch(function (error) {
-        console.log(error)
+        if(error.response.data.message) {
+          toast.error(`Falha ao fazer login. ${error.response.data.message}!`)
+          return
+        }
         toast.error('Falha ao fazer login. Tente novamente!')
       })
       .finally(function () {

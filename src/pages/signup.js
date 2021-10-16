@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { Link, useHistory } from "react-router-dom";
 import api from '../services/api'
 
-import '../styles/login.scss';
+import './login.scss';
 
 const SignUp = () =>{
   const history = useHistory()
@@ -16,19 +16,24 @@ const SignUp = () =>{
     
     if(email === '') {
       toast.error('Por favor, preencha o campo de email! ')
+      return
     }
     if(password !== repeatPassword) {
       toast.error('Senha e confirmação de senhas devem ser iguais ')
+      return
     }
 
     const loadToastId = toast.loading("Registrando conta...")
     api
       .post('login/create', {email, password, repeatPassword})
       .then((response) => {
-        console.log('handleRegistration response', response)
         history.push('/signin')
       })
       .catch(function (error) {
+          if(error.response.data.message) {
+            toast.error(`Falha ao registrar. ${error.response.data.message}`)
+            return
+          }
         toast.error('Falha ao registrar. Tente novamente!')
       })
       .finally(function () {

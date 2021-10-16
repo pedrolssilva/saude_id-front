@@ -26,7 +26,7 @@ function App() {
         <Route path='/' exact component={SignUp} />
         <Route path='/signin' component={SignIn} />
         <Route path='/movies' component={Items} />
-        <Route path='/details' component={ItemDetail} />
+        <Route path='/details/:itemId' component={ItemDetail} />
       </Switch>
     </Router>
   );

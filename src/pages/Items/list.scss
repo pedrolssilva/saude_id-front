@@ -1,0 +1,23 @@
+main {
+  flex: 8;
+  padding: 0 32px 0 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+  align-items: stretch;
+  text-align: center;
+
+  h1 {
+    color: #3e2810;
+    font-size: 24px;
+    margin: 64px 0 24px;
+    font-family: 'Poppins', sans-serif;
+  }
+}
