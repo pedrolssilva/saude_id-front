@@ -20,4 +20,18 @@ main {
     margin: 64px 0 24px;
     font-family: 'Poppins', sans-serif;
   }
+
+  #see-more-btn {
+    font-family: 'Poppins', sans-serif;
+    color: #fffff0;
+    border: none;
+    background-color: #aca564;
+    border-radius: 4px;
+    padding: 0 4px;
+    cursor: pointer;
+  }
+
+  #see-more-btn:hover {
+    background: #928c50;
+  }
 }

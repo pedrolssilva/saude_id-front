@@ -11,11 +11,14 @@ const Items = (props) => {
   const history = useHistory()
   
   const [items, setItems] = useState([])
+  const [totalItems, setTotalItems] = useState(0)
 
   const defaultLimit = 5
-
   useEffect(() => {
-    const skip = 0
+    loadItems()
+  }, [])
+
+  const loadItems = (skip =0) => {
     const loadToastId = toast.loading("Buscando filmes...")
     api
       .get(`items/list?type=Movie&skip=${skip}&limit=${defaultLimit}`, { 
@@ -24,7 +27,10 @@ const Items = (props) => {
         }
       })
       .then((response) => {
-        setItems(response.data)
+        const {count, items: itemsData} = response.data
+        const newItems = skip > 0 ? [...items, ...itemsData] : itemsData
+        setItems(newItems)
+        setTotalItems(count)
       })
       .catch(function (error) {
         if(error.response && error.response.status === 401) {
@@ -40,7 +46,11 @@ const Items = (props) => {
       .finally(function () {
         toast.dismiss(loadToastId); 
       })
-  }, [])
+  }
+
+  const handleSeeMore = () => {
+    loadItems(items.length)
+  }
 
   return (
     <div id='page-items'>
@@ -58,6 +68,9 @@ const Items = (props) => {
             )
           })}
           </div>
+          {totalItems > items.length && 
+            <button id="see-more-btn" type="button" onClick={handleSeeMore}>Ver mais</button>
+          } 
         </div>
       </main>
     </div>
