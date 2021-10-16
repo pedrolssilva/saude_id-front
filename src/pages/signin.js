@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { signIn } from '../services/LoginService'
+import api from '../services/api'
+import StorageService from '../services/StorageService'
+
 
 import '../styles/login.scss';
 
 const SignIn = () =>{
+  const history = useHistory()
+
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   
@@ -19,10 +23,23 @@ const SignIn = () =>{
       toast.error('Por favor, preencha o campo de senha! ')
     }
 
-    await signIn({
-      email,
-      password
-    })
+    const loadToastId = toast.loading("Entrando...")
+    api
+      .post('login/in', {email, password})
+      .then((response) => {
+        console.log('handleRegistration response', response)
+        StorageService.set('userId', response.data.userId)
+        StorageService.set('email', email)
+        StorageService.set('token', response.data.token)
+        history.push('/movies')
+      })
+      .catch(function (error) {
+        console.log(error)
+        toast.error('Falha ao fazer login. Tente novamente!')
+      })
+      .finally(function () {
+        toast.dismiss(loadToastId); 
+      })
   }
 
   return (

@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ToastContainer,Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
-import History from './services/HistoryService'
 
 import Navbar from "./components/Navbar"
 import SignUp from "./pages/signup"
@@ -10,7 +9,7 @@ import Items from "./pages/Items/List"
 import ItemDetail from "./pages/Items/Show"
 function App() {
   return (
-    <Router history={History}>
+    <Router>
        <ToastContainer
         position='bottom-right'
         transition={Slide}

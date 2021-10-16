@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import { toast } from 'react-toastify';
-import { Link } from "react-router-dom";
-import { register } from '../services/LoginService'
+import { Link, useHistory } from "react-router-dom";
+import api from '../services/api'
 
 import '../styles/login.scss';
 
 const SignUp = () =>{
-
+  const history = useHistory()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
@@ -21,11 +21,19 @@ const SignUp = () =>{
       toast.error('Senha e confirmação de senhas devem ser iguais ')
     }
 
-    await register({
-      email,
-      password,
-      repeatPassword
-    })
+    const loadToastId = toast.loading("Registrando conta...")
+    api
+      .post('login/create', {email, password, repeatPassword})
+      .then((response) => {
+        console.log('handleRegistration response', response)
+        history.push('/signin')
+      })
+      .catch(function (error) {
+        toast.error('Falha ao registrar. Tente novamente!')
+      })
+      .finally(function () {
+        toast.dismiss(loadToastId); 
+      })
   }
 
   return (

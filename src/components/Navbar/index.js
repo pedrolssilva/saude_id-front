@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, useHistory } from "react-router-dom";
-import { signOut } from '../../services/LoginService'
+import { toast } from 'react-toastify';
 import StorageService from '../../services/StorageService'
+import api from '../../services/api'
 
 import './styles.scss';
 
@@ -10,11 +11,21 @@ export default function Navbar(){
   async function handleSignOut(){
     const email = StorageService.get('email')
     if(email) {
-      await signOut({
-        email: StorageService.get('email'),
-      })
+      const loadToastId = toast.loading("Saindo...")
+      api
+        .post('login/out', {email})
+        .then((response) => {
+          StorageService.clear()
+        })
+        .catch(function (error) {
+          console.log(error)
+          toast.error('Falha ao fazer logout. Tente novamente!')
+        })
+        .finally(function () {
+          toast.dismiss(loadToastId); 
+        })
     }
-    history.push('/signin')
+      history.push('/signin')
   }
 
   return (
